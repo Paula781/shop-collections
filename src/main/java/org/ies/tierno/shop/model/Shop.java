@@ -1,9 +1,11 @@
 package org.ies.tierno.shop.model;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -19,38 +21,38 @@ public class Shop {
     Dado un nif, devuelve el cliente con ese NIF.
      */
 
-    public Customer findCustomer(String nif){
-        for (var customer: customers){
-            if (customer.getNif().equals(nif)){
+    public Customer findCustomer(String nif) {
+        for (var customer : customers) {
+            if (customer.getNif().equals(nif)) {
                 return customer;
             }
         }
-       return null;
+        return null;
     }
 
     /*
     Dado un nif y un id de pedido, devuelve el pedido del cliente.
      */
 
-    public Order findCustomerOrder(String nif, int orderid){
-        Customer customer= findCustomer(nif);
-        if (customer!=null){
-            for (var order: customer.getOrders()){
-                if (order.getId()==orderid){
+    public Order findCustomerOrder(String nif, int orderid) {
+        Customer customer = findCustomer(nif);
+        if (customer != null) {
+            for (var order : customer.getOrders()) {
+                if (order.getId() == orderid) {
                     return order;
                 }
             }
         }
-        return  null;
+        return null;
     }
 
     /*
     Dado un id de producto, devuelve el producto con ese id.
      */
 
-    public Product findProduct(int Id){
-        for (var product: productsById.values()){
-            if (productsById.containsKey(Id)){
+    public Product findProduct(int Id) {
+        for (var product : productsById.values()) {
+            if (productsById.containsKey(Id)) {
                 return product;
             }
         }
@@ -62,30 +64,39 @@ public class Shop {
     los productos que se han pedido.
      */
 
-    public List<Product> findProductCustomerOrder(String nif, int orderId){
+    public List<Product> findProductCustomerOrder(String nif, int orderId) {
 
-        List<Product> orderProduct= new ArrayList<>();
-        Order order= findCustomerOrder(nif, orderId);
+        Order order = findCustomerOrder(nif, orderId);
 
-        if (order!=null){
+        if (order != null) {
 
-            for (var item: order.getItems()){
-               item.getProductId();+
+            return order
+                    .getItems()
+                    .stream()
+                    .map(item -> productsById.get(item.getProductId()))
+                    .collect(Collectors.toList());
 
-            }
         }
-        return  orderProduct;
+        return null;
     }
+
 
     /*
     Dado una etiqueta (String), devuelve una lista de productos
     que tienen esa etiqueta.
      */
 
+    public  List<Product>findProductByTag(String tag){
+        return null;
+    }
+
     /*
     Dado un nif, devuelve cuánto se ha gastado el cliente en la tienda.
      */
 
+    public void totalAmount (String nif){
+        return;
+    }
 
 
 }
