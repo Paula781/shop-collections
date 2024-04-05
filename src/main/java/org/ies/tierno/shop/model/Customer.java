@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -18,6 +19,8 @@ public class Customer implements  Comparable<Customer>{
 
     private List<Order> orders;
 
+
+
     @Override
     public int compareTo(Customer o) {
         int compare = this.surname.compareTo(o.surname);
@@ -29,4 +32,5 @@ public class Customer implements  Comparable<Customer>{
         }
         return compare;
     }
+
 }
