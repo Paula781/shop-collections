@@ -50,13 +50,12 @@ public class Shop {
     Dado un id de producto, devuelve el producto con ese id.
      */
 
-    public Product findProduct(int Id) {
-        for (var product : productsById.values()) {
-            if (productsById.containsKey(Id)) {
-                return product;
-            }
+    public Product findProductById(int productId) {
+        if (productsById.containsKey(productId)) {
+            return productsById.get(productId);
+        } else {
+            return null;
         }
-        return null;
     }
 
     /*
@@ -70,11 +69,17 @@ public class Shop {
 
         if (order != null) {
 
-            return order
-                    .getItems()
-                    .stream()
-                    .map(item -> productsById.get(item.getProductId()))
-                    .collect(Collectors.toList());
+//            return order
+//                    .getItems()
+//                    .stream()
+//                    .map(item -> productsById.get(item.getProductId()))
+//                    .collect(Collectors.toList());
+
+            List<Product> products = new ArrayList<>();
+            for (var item : order.getItems()) {
+                products.add(productsById.get(item.getProductId()));
+            }
+            return products;
 
         }
         return null;
@@ -86,32 +91,29 @@ public class Shop {
     que tienen esa etiqueta.
      */
 
-    public  List<Product>findProductByTag(String tag){
-        List<Product> productTag= new ArrayList<>();
-        for (Product product: productsById.values()){
-            if (product.getTags().contains(tag)){
+    public List<Product> findProductByTag(String tag) {
+        List<Product> productTag = new ArrayList<>();
+        for (Product product : productsById.values()) {
+            if (product.getTags().contains(tag)) {
                 productTag.add(product);
             }
         }
-         return  productTag;
+        return productTag;
     }
 
     /*
     Dado un nif, devuelve cuánto se ha gastado el cliente en la tienda.
      */
 
-    public double totalAmountSpent (String nif){
-        double totalSpent=0.0;
-        Customer customer= findCustomer(nif);
-                if(customer!=null){
-                    for (Order order: customer.getOrders()){
-                        totalSpent +=order.getPrice();
-                    }
-                }else{
-                    System.out.println("No se ha encontrado al cliente con NIF: "+nif);
-                }
-                return  totalSpent;
+    public Double totalAmountSpent(String nif) {
+        Customer customer = findCustomer(nif);
+        if (customer != null) {
+            double totalSpent = 0.0;
+            for (Order order : customer.getOrders()) {
+                totalSpent += order.getPrice();
+            }
+            return totalSpent;
+        }
+        return null;
     }
-
-
 }
