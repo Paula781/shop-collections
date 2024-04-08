@@ -87,15 +87,30 @@ public class Shop {
      */
 
     public  List<Product>findProductByTag(String tag){
-        return null;
+        List<Product> productTag= new ArrayList<>();
+        for (Product product: productsById.values()){
+            if (product.getTags().contains(tag)){
+                productTag.add(product);
+            }
+        }
+         return  productTag;
     }
 
     /*
     Dado un nif, devuelve cuánto se ha gastado el cliente en la tienda.
      */
 
-    public void totalAmount (String nif){
-        return;
+    public double totalAmountSpent (String nif){
+        double totalSpent=0.0;
+        Customer customer= findCustomer(nif);
+                if(customer!=null){
+                    for (Order order: customer.getOrders()){
+                        totalSpent +=order.getPrice();
+                    }
+                }else{
+                    System.out.println("No se ha encontrado al cliente con NIF: "+nif);
+                }
+                return  totalSpent;
     }
 
 
