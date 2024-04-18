@@ -1,0 +1,49 @@
+Implementa una estructura de clases que permita gestionar una tienda. De la tienda se debe almacenar:
+
+name
+
+productsById: los productos deben estar indexados por id de producto. Por cada producto:
+
+id: de producto (entero)
+
+name
+
+price: double
+
+tags: conjunto no ordenado de etiquetas (cada etiqueta es un String)
+
+customers: Conjunto de clientes ordenados por apellidos, nombre y nif. Por cada cliente
+
+nif (String)
+
+name
+
+surnmae
+
+orders: lista de pedidos, por cada pedido:
+
+id: int
+
+date
+
+price: double
+
+items: lista de items del pedido, por cada item:
+
+productId: entero
+
+amount
+
+Implementa los siguientes métodos en la clase Shop:
+
+Dado un nif, devuelve el cliente con ese NIF.
+
+Dado un nif y un id de pedido, devuelve el pedido del cliente.
+
+Dado un id de producto, devuelve el producto con ese id.
+
+Dado un nif y un id de pedido, devuelve una lista con los productos que se han pedido.
+
+Dado una etiqueta (String), devuelve una lista de productos que tienen esa etiqueta.
+
+Dado un nif, devuelve cuánto se ha gastado el cliente en la tienda.
